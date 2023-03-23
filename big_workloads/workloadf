@@ -14,28 +14,24 @@
 # LICENSE file.
 
 # Yahoo! Cloud System Benchmark
-# Workload D: Read latest workload
-#   Application example: user status updates; people want to read the latest
+# Workload F: Read-modify-write workload
+#   Application example: user database, where user records are read and modified by the user or to record user activity.
 #
-#   Read/update/insert ratio: 95/0/5
+#   Read/read-modify-write ratio: 50/50
 #   Default data size: 1 KB records (10 fields, 100 bytes each, plus key)
-#   Request distribution: latest
+#   Request distribution: zipfian
 
-# The insert order for this is hashed, not ordered. The "latest" items may be
-# scattered around the keyspace if they are keyed by userid.timestamp. A workload
-# which orders items purely by time, and demands the latest, is very different than
-# workload here (which we believe is more typical of how people build systems.)
-
-recordcount=500000
-operationcount=500000
+recordcount=1000000
+operationcount=1000000
 workload=site.ycsb.workloads.CoreWorkload
 
 readallfields=true
 
-readproportion=0.95
+readproportion=0.5
 updateproportion=0
 scanproportion=0
-insertproportion=0.05
+insertproportion=0
+readmodifywriteproportion=0.5
 
-requestdistribution=latest
+requestdistribution=zipfian
 
