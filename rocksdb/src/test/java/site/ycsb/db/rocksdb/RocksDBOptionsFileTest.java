@@ -54,11 +54,12 @@ public class RocksDBOptionsFileTest {
   }
 
   private void checkOptions(final String dbPath) throws Exception {
+    final ConfigOptions config = new ConfigOptions().setEnv(Env.getDefault());
     final List<ColumnFamilyDescriptor> cfDescriptors = new ArrayList<>();
     final DBOptions dbOptions = new DBOptions();
 
     RocksDB.loadLibrary();
-    OptionsUtil.loadLatestOptions(dbPath, Env.getDefault(), dbOptions, cfDescriptors);
+    OptionsUtil.loadLatestOptions(config, dbPath, dbOptions, cfDescriptors);
 
     try {
       assertEquals(dbOptions.walSizeLimitMB(), 42);
